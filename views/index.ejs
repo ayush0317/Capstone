@@ -4,14 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Name</title>
+
+    <!-- ✅ Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- ✅ Custom Styles -->
+    <style>
+        /* 🔹 Fullscreen Background */
+        body {
+            background: url('https://source.unsplash.com/1920x1080/?restaurant,food') no-repeat center center/cover;
+            min-height: 100vh; 
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 🔹 Transparent Navbar */
+        .navbar {
+            background: rgba(0, 0, 0, 0.5) !important;
+        }
+
+        /* 🔹 Carousel Styling */
+        #restaurantCarousel {
+            width: 100%;
+            height: 90vh;
+            position: relative;
+        }
+
+        #restaurantCarousel .carousel-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures images cover the carousel */
+        }
+
+        /* 🔹 Hero Section Always Visible */
+        .hero {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            backdrop-filter: blur(5px);
+            padding: 40px 20px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            width: 80%;
+            z-index: 10; /* Ensures it stays above the carousel */
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* 🔹 Fade-in Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- ✅ Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <!-- ✅ Transparent Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="/">Restaurant Name</a>
+            <a class="navbar-brand fw-bold text-uppercase" href="/">Restaurant Name</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -21,9 +93,6 @@
                     <li class="nav-item"><a class="nav-link" href="/menu">Menu</a></li>
                     <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
-                    <li class="nav-item">
-                        <a class="btn btn-danger ms-3" href="/book">Book a Table</a>
-                    </li>
                     <li class="nav-item ms-3">
                         <a class="btn btn-outline-light" href="/login">Sign In</a>
                     </li>
@@ -35,20 +104,56 @@
         </div>
     </nav>
 
-    <!-- ✅ Display Login Success Message -->
-    <% if (message && message.trim() !== "") { %>
-        <div class="alert alert-success text-center mt-3" role="alert">
-            <%= message %>
-        </div>
-    <% } %>
-    
-    <!-- ✅ Hero Section -->
-    <div class="container-fluid text-center bg-light py-5">
-        <h1 class="display-4">Experience Fine Dining</h1>
-        <p class="lead">Indulge in a unique culinary journey at Restaurant Name.</p>
-        <a href="/book" class="btn btn-danger btn-lg">Book a Table</a>
+    <!-- ✅ Hero Section (Now Outside the Carousel) -->
+    <div class="hero">
+        <h1>Welcome to Restaurant Name</h1>
+        <p>Experience luxury dining with world-class flavors.</p>
+        <a href="/book" class="btn btn-custom btn-lg mt-3">Book a Table</a>
     </div>
 
+    <!-- ✅ Bootstrap Carousel (Automatic Slideshow) -->
+    <div id="restaurantCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
+        <!-- ✅ Indicators -->
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#restaurantCarousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#restaurantCarousel" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#restaurantCarousel" data-bs-slide-to="2"></button>
+            <button type="button" data-bs-target="#restaurantCarousel" data-bs-slide-to="3"></button>
+            <button type="button" data-bs-target="#restaurantCarousel" data-bs-slide-to="4"></button>
+        </div>
+
+        <!-- ✅ Carousel Inner -->
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="/Images/111.png" class="d-block w-100" alt="Restaurant Interior">
+            </div>
+            <div class="carousel-item">
+                <img src="/Images/222.png" class="d-block w-100" alt="Fine Dining">
+            </div>
+            <div class="carousel-item">
+                <img src="/Images/333.png" class="d-block w-100" alt="Food Plating">
+            </div>
+            <div class="carousel-item">
+                <img src="/Images/444.png" class="d-block w-100" alt="Outdoor Dining">
+            </div>
+            <div class="carousel-item">
+                <img src="/Images/555.png" class="d-block w-100" alt="Gourmet Dish">
+            </div>
+        </div>
+
+        <!-- ✅ Controls (Kept as Requested) -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#restaurantCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#restaurantCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <!-- ✅ Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
