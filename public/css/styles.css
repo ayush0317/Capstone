@@ -1,0 +1,106 @@
+/* 🔹 General Styles for Homepage */
+body {
+    background: url('https://source.unsplash.com/1920x1080/?restaurant,food') no-repeat center center/cover;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 🔹 Transparent Navbar */
+.navbar {
+    background: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* 🔹 Carousel Styling */
+#restaurantCarousel {
+    width: 100%;
+    height: 90vh;
+    position: relative;
+    margin-bottom: 50px; /* ✅ Adds spacing below carousel */
+}
+
+#restaurantCarousel .carousel-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 🔹 Hero Section */
+.hero {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    backdrop-filter: blur(5px);
+    padding: 40px 20px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    width: 80%;
+    z-index: 10;
+}
+
+/* 🔹 About Section Fix */
+.about-section {
+    background: #2a2a2a;
+    color: white;
+    padding: 100px 0; /* ✅ Expands black section downwards */
+    text-align: left;
+    position: relative;
+    z-index: 5;
+    margin-top: -20px; /* ✅ Moves it up so it aligns with the image */
+    min-height: 400px; /* ✅ Ensures enough space for content */
+}
+
+/* 🔹 About Image Styling */
+.about-section img {
+    width: 100%;
+    height: 400px; /* ✅ Adjust image height to match the section */
+    object-fit: cover; /* ✅ Ensures image covers the area without distortion */
+}
+
+.about-section .about-title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.about-section .about-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+/* 🔹 Locations Section Styling */
+.locations-section {
+    background: #d3dfdfe9;
+    padding: 60px 0;
+}
+
+.locations-section h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card img {
+    height: 250px;
+    object-fit: cover;
+}
+
+.card-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #6c757d;
+}

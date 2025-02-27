@@ -1,0 +1,68 @@
+/* 🔹 Background for Sign In & Sign Up */
+body {
+    background: url('/Images/111.png') no-repeat center center/cover;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+}
+
+/* 🔹 Form Container */
+.form-container {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 40px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    color: white;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* 🔹 Form Input Styling */
+.form-control {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+/* 🔹 Button Styling */
+.btn-custom {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-custom:hover {
+    background-color: #218838;
+}
+
+/* 🔹 Link Styling */
+.text-link {
+    color: #f8f9fa;
+    text-decoration: underline;
+}
+
+.text-link:hover {
+    color: #ffc107;
+}
+
+/* 🔹 Password Validation Message */
+.password-requirements {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: left;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
