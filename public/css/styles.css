@@ -71,18 +71,67 @@ body {
     font-size: 1.1rem;
     line-height: 1.6;
 }
-/* 🔹 Locations Section Styling */
+/* 🔹 Locations Section - Appear First */
 .locations-section {
-    background: #d3dfdfe9;
-    padding: 60px 0;
+    background: #f8f9fa; /* Light background */
+    padding: 80px 0;
+    position: relative;
+    z-index: 10; /* Ensure it's on top */
+    margin-top: -100px; /* Moves it up to appear before About */
 }
 
+/* 🔹 Location Cards - Better Visibility */
+.locations-section .card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    background: white;
+}
+
+.locations-section .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* 🔹 Location Images */
+.locations-section .card img {
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+}
+
+.locations-section .card:hover img {
+    transform: scale(1.1);
+}
+
+/* 🔹 Location Titles */
 .locations-section h2 {
+    text-align: center;
     font-size: 2.5rem;
     font-weight: bold;
     text-transform: uppercase;
     margin-bottom: 20px;
 }
+
+/* 🔹 Location Description */
+.locations-section .card-text {
+    font-size: 1rem;
+    color: #6c757d;
+    text-align: center;
+}
+
+/* 🔹 Adjust About Section to Come Later */
+.about-section {
+    background: #2a2a2a;
+    color: white;
+    padding: 100px 0;
+    margin-top: 35px;
+    margin-bottom:35px; /* Pushes About down */
+    position: relative;
+    z-index: 5;
+}
+
 
 .card {
     border: none;
@@ -174,4 +223,49 @@ body {
 
 .chef-image:hover {
     transform: scale(1.05);
+}
+/* 🔹 "Experience More" Section */
+.experience-section {
+    background: #181818;
+    color: white;
+    padding: 80px 0;
+}
+
+.experience-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.experience-text {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.experience-card {
+    background: #222;
+    color: white;
+    border-radius: 12px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.experience-card img {
+    height: 250px;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+}
+
+.experience-card:hover {
+    transform: scale(1.05);
+}
+
+.btn-experience {
+    background: #ffc107;
+    color: black;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.btn-experience:hover {
+    background: #ff9800;
+    color: white;
 }

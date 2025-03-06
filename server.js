@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const cors = require("cors");
 const session = require("express-session");
-const Location = require("./models/location"); // ✅ Import Locations Model
+const Location = require("./models/location");
 
 const app = express();
 
@@ -14,9 +14,10 @@ app.use(cors());
 // ✅ Connect to MongoDB
 mongoose.connect("mongodb://localhost:27017/userDB", {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
-}).then(() => console.log("✅ Connected to MongoDB"))
-  .catch(err => console.log("❌ MongoDB Connection Error:", err));
+    useUnifiedTopology: true
+})
+    .then(() => console.log("✅ Connected to MongoDB"))
+    .catch(err => console.log("❌ MongoDB Connection Error:", err));
 
 // ✅ Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,6 +28,13 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
+
+// ✅ Pass User Session Data to All Views
+app.use((req, res, next) => {
+    res.locals.user = req.session.user || null;
+    res.locals.isAdmin = req.session.user?.isAdmin || false;
+    next();
+});
 
 // ✅ Set EJS as the View Engine
 app.set("view engine", "ejs");
@@ -59,22 +67,26 @@ async function loadDefaultLocations() {
 // ✅ Ensure Default Locations Exist Before Server Starts
 loadDefaultLocations();
 
-// ✅ Render Home Page & Pass `isAdmin`
+// ✅ Render Home Page
 app.get("/", async (req, res) => {
     try {
         const locations = await Location.find();
         res.render("index", {
-            locations: locations, 
-            isAdmin: req.session.isAdmin || false // ✅ Ensure `isAdmin` is always defined
+            locations,
+            user: req.session.user
         });
     } catch (error) {
+        console.error("❌ Error loading home page:", error);
         res.status(500).send("Error loading page");
     }
 });
 
-// ✅ Import Routes (Ensure Correct Path)
+// ✅ Import Routes
+const menuRoutes = require("./routes/menu");
 const authRoutes = require("./routes/auth");
-const locationRoutes = require("./routes/location"); // ⬅️ Correcting this to "locations.js"
+const locationRoutes = require("./routes/location");
+
+app.use("/menu", menuRoutes);
 app.use("/", authRoutes);
 app.use("/", locationRoutes);
 

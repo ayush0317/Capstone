@@ -11,7 +11,6 @@
 </head>
 <body class="home-body">
 
-    <!-- ✅ Transparent Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand fw-bold text-uppercase" href="/">Restaurant Name</a>
@@ -24,18 +23,27 @@
                     <li class="nav-item"><a class="nav-link" href="/menu">Menu</a></li>
                     <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
-                    <li class="nav-item ms-3">
-                        <a class="btn btn-outline-light" href="/login">Sign In</a>
-
-                    </li>
-                    <li class="nav-item ms-2">
-                        <a class="btn btn-success" href="/signup">Sign Up</a>
-                    </li>
+    
+                    <% if (user) { %>
+                        <li class="nav-item">
+                            <span class="nav-link text-white">👤 <%= user.firstName %></span>
+                        </li>
+                        <li class="nav-item ms-3">
+                            <a class="btn btn-danger" href="/logout">Logout</a>
+                        </li>
+                    <% } else { %>
+                        <li class="nav-item ms-3">
+                            <a class="btn btn-outline-light" href="/login">Sign In</a>
+                        </li>
+                        <li class="nav-item ms-2">
+                            <a class="btn btn-success" href="/signup">Sign Up</a>
+                        </li>
+                    <% } %>
                 </ul>
             </div>
         </div>
     </nav>
-
+    
     <!-- ✅ Hero Section -->
     <div class="hero">
         <h1>Welcome to Restaurant Name</h1>
@@ -227,6 +235,28 @@
         </div>
     </section>
     
+
+
+<!-- ✅ NEW "Experience More" Section -->
+<section class="experience-section py-5">
+    <div class="container text-center">
+        <h2 class="experience-title">Experience More</h2>
+        <p class="experience-text">Discover the exquisite dishes curated by our chefs.</p>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-lg experience-card">
+                    <img src="/Images/menu-highlight.png" class="card-img-top" alt="Special Dish">
+                    <div class="card-body">
+                        <h5 class="card-title">Explore Our Exclusive Menu</h5>
+                        <p class="card-text">Indulge in a delightful gourmet experience with our handpicked specialties.</p>
+                        <a href="/menu" class="btn btn-experience btn-lg">Explore Menu</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 
     <!-- ✅ Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

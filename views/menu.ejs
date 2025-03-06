@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Menu | Restaurant Name</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/menu.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-uppercase" href="/">Restaurant Name</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/menu">Menu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+    
+                    <% if (user) { %>
+                        <li class="nav-item">
+                            <span class="nav-link text-white">👤 <%= user.firstName %></span>
+                        </li>
+                        <li class="nav-item ms-3">
+                            <a class="btn btn-danger" href="/logout">Logout</a>
+                        </li>
+                    <% } else { %>
+                        <li class="nav-item ms-3">
+                            <a class="btn btn-outline-light" href="/login">Sign In</a>
+                        </li>
+                        <li class="nav-item ms-2">
+                            <a class="btn btn-success" href="/signup">Sign Up</a>
+                        </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    
+
+    <!-- ✅ Menu Section -->
+    <div class="menu-container">
+        <!-- ✅ Sidebar -->
+        <aside class="menu-sidebar">
+            <h3 class="menu-title">Categories</h3>
+            <ul class="menu-list">
+                <li><a href="#" onclick="showCategory('all')">🍽️ All</a></li>
+                <li><a href="#" onclick="showCategory('appetizers')">🥂 Appetizers</a></li>
+                <li><a href="#" onclick="showCategory('main-course')">🍷 Main Course</a></li>
+                <li><a href="#" onclick="showCategory('desserts')">🍮 Desserts</a></li>
+                <li><a href="#" onclick="showCategory('beverages')">☕ Beverages</a></li>
+                <li><a href="#" onclick="showCategory('special-dishes')">💎 Signature Dishes</a></li>
+            </ul>
+        </aside>
+
+        <!-- ✅ Menu Content -->
+        <main class="menu-content">
+
+            <!-- ✅ Admin Add Button -->
+            <% if (isAdmin) { %>
+                <div class="text-center my-3">
+                    <a href="/menu/add" class="btn btn-primary">➕ Add New Item</a>
+                </div>
+            <% } %>
+
+            <!-- ✅ Appetizers Section -->
+            <section id="appetizers" class="menu-category">
+                <h2 class="section-title">🥂 Appetizers</h2>
+                <div class="row">
+                    <% vegAppetizers.forEach(item => { %>
+                        <div class="col-md-6">
+                            <div class="menu-card">
+                                <img src="/Images/<%= item.image %>" alt="<%= item.name %>">
+                                <div class="menu-details">
+                                    <h5><%= item.name %></h5>
+                                    <p><%= item.description %></p>
+                                    <span class="price">₹<%= item.price %></span>
+                                    <button class="btn btn-add">Add to Cart</button>
+
+                                    <!-- ✅ Admin Edit & Delete Buttons -->
+                                    <% if (isAdmin) { %>
+                                        <div class="d-flex justify-content-center gap-2 mt-2">
+                                            <a href="/menu/edit/<%= item._id %>" class="btn btn-warning btn-sm">✏️ Edit</a>
+                                            <form action="/menu/delete/<%= item._id %>" method="POST" onsubmit="return confirm('Are you sure?');">
+                                                <button type="submit" class="btn btn-danger btn-sm">🗑️ Delete</button>
+                                            </form>
+                                        </div>
+                                    <% } %>
+
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            </section>
+
+            <!-- ✅ More Sections -->
+            <section id="main-course" class="menu-category">
+                <h2 class="section-title">🍷 Main Course</h2>
+                <div class="row">
+                    <% vegMainCourse.forEach(item => { %>
+                        <div class="col-md-6">
+                            <div class="menu-card">
+                                <img src="/Images/<%= item.image %>" alt="<%= item.name %>">
+                                <div class="menu-details">
+                                    <h5><%= item.name %></h5>
+                                    <p><%= item.description %></p>
+                                    <span class="price">₹<%= item.price %></span>
+                                    <button class="btn btn-add">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            </section>
+
+            <section id="desserts" class="menu-category">
+                <h2 class="section-title">🍮 Desserts</h2>
+                <div class="row">
+                    <% desserts.forEach(item => { %>
+                        <div class="col-md-6">
+                            <div class="menu-card">
+                                <img src="/Images/<%= item.image %>" alt="<%= item.name %>">
+                                <div class="menu-details">
+                                    <h5><%= item.name %></h5>
+                                    <p><%= item.description %></p>
+                                    <span class="price">₹<%= item.price %></span>
+                                    <button class="btn btn-add">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        function showCategory(category) {
+            let categories = document.querySelectorAll('.menu-category');
+
+            if (category === "all") {
+                categories.forEach(section => {
+                    section.style.display = 'block'; // Show all categories
+                });
+            } else {
+                categories.forEach(section => {
+                    section.style.display = 'none'; // Hide all categories
+                });
+                document.getElementById(category).style.display = 'block'; // Show selected category
+            }
+        }
+
+        // ✅ Show all categories initially
+        document.addEventListener("DOMContentLoaded", function () {
+            showCategory('all');
+        });
+    </script>
+
+    <!-- ✅ Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
