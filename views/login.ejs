@@ -6,29 +6,88 @@
     <title>Sign In</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/auth.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-    <div class="form-container">
-        <h2 class="mb-4">Sign In</h2>
-        <form action="/login" method="POST">
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" required>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-            </div>
-            <button type="submit" class="btn btn-custom w-100">Sign In</button>
-        </form>
-        <p class="mt-3">
+    <div class="login-container">
+        <h2 class="text-center mb-4">Sign In</h2>
+
+        <!-- Tab Navigation -->
+        <ul class="nav nav-tabs justify-content-center" id="loginTabs">
+            <li class="nav-item">
+                <button class="nav-link active" onclick="showLogin('user')">User</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" onclick="showLogin('owner')">Owner</button>
+            </li>
+        </ul>
+
+        <!-- User Login Form -->
+        <div id="userLogin" class="login-form active">
+            <form action="/login/user" method="POST">
+                <div class="mb-3">
+                    <label class="form-label"><i class="fas fa-envelope"></i> Email</label>
+                    <input type="email" class="form-control" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label"><i class="fas fa-lock"></i> Password</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="userPassword" name="password" required>
+                        <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('userPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-custom w-100">Sign In</button>
+            </form>
+        </div>
+
+        <!-- Owner Login Form -->
+        <div id="ownerLogin" class="login-form">
+            <form action="/login/owner" method="POST">
+                <div class="mb-3">
+                    <label class="form-label"><i class="fas fa-user-shield"></i> Admin Email</label>
+                    <input type="email" class="form-control" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label"><i class="fas fa-lock"></i> Password</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="ownerPassword" name="password" required>
+                        <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('ownerPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-custom w-100">Sign In as Owner</button>
+            </form>
+        </div>
+
+        <p class="mt-3 text-center">
             <a href="/forgot-password" class="text-link">Forgot Password?</a>
         </p>
-        <p>
+        <p class="text-center">
             Don't have an account? <a href="/signup" class="text-link">Sign Up</a>
         </p>
     </div>
+
+    <script>
+        function showLogin(role) {
+            document.querySelectorAll(".login-form").forEach(form => form.classList.remove("active"));
+            document.getElementById(role + "Login").classList.add("active");
+            document.querySelectorAll(".nav-link").forEach(tab => tab.classList.remove("active"));
+            document.querySelector(`[onclick="showLogin('${role}')"]`).classList.add("active");
+        }
+
+        function togglePassword(inputId) {
+            let input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+            } else {
+                input.type = "password";
+            }
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

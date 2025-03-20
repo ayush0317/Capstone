@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Reports</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+    <div class="container mt-5">
+        <h1 class="text-center text-warning">Admin Reports</h1>
+        
+        <div class="row mt-4">
+            <!-- ✅ Total Orders -->
+            <div class="col-md-6">
+                <div class="card text-center p-3 shadow">
+                    <h3>Total Orders</h3>
+                    <h2 class="text-primary"><%= totalOrders %></h2>
+                </div>
+            </div>
+
+            <!-- ✅ Past Orders -->
+            <div class="col-md-12 mt-4">
+                <div class="card p-3 shadow">
+                    <h3>Past Orders</h3>
+                    <table class="table table-bordered mt-2">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Payment</th>
+                                <th>Total</th>
+                                <th>Order Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% orderHistory.forEach(order => { %>
+                                <tr>
+                                    <td><%= order.name %></td>
+                                    <td><%= order.email %></td>
+                                    <td><%= order.address %></td>
+                                    <td><%= order.paymentMethod %></td>
+                                    <td class="text-success">₹<%= order.totalAmount %></td>
+                                    <td><%= new Date(order.createdAt).toLocaleString() %></td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ✅ Back Button -->
+        <div class="text-center mt-4">
+            <a href="/" class="btn btn-outline-warning">Back to Home</a>
+        </div>
+    </div>
+
+</body>
+</html>

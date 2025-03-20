@@ -3,9 +3,9 @@ const router = express.Router();
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 
-// ✅ Admin Credentials (Email + Password Check)
+// ✅ Admin Credentials (Admin Email + Password Check)
 const ADMIN_CREDENTIALS = {
-    "vidhivcc@gmail.com": "Ayush@1711" // You can add more admin emails & passwords here
+    "vidhivcc@gmail.com": "Ayush@1711" // ✅ Add more Admins if needed
 };
 
 // ✅ Render Signup Page
@@ -18,32 +18,32 @@ router.post("/signup", async (req, res) => {
     try {
         const { firstName, lastName, address, email, password } = req.body;
 
-        // ✅ Check if email already exists
+        // ✅ Check if Email Already Exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(400).send("<script>alert('Email already exists!'); window.location='/signup';</script>");
         }
 
-        // ✅ Validate password strength
+        // ✅ Validate Password Strength
         const passwordRegex = /^(?=.*[A-Z])(?=.*\W).{8,}$/;
         if (!passwordRegex.test(password)) {
             return res.status(400).send("<script>alert('Password must have 8+ characters, 1 uppercase, 1 special character.'); window.location='/signup';</script>");
         }
 
-        // ✅ Hash password
+        // ✅ Hash Password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // ✅ Determine if the user is an Admin based on Email + Password Match
-        const isAdmin = ADMIN_CREDENTIALS[email] && bcrypt.compareSync(ADMIN_CREDENTIALS[email], hashedPassword);
+        // ✅ Determine if the User is an Admin Based on Credentials
+        const isAdmin = ADMIN_CREDENTIALS[email] && password === ADMIN_CREDENTIALS[email];
 
-        // ✅ Save user
-        const newUser = new User({ 
-            firstName, 
-            lastName, 
-            address, 
-            email, 
-            password: hashedPassword, 
-            isAdmin // ✅ Store admin status based on credentials
+        // ✅ Save User
+        const newUser = new User({
+            firstName,
+            lastName,
+            address,
+            email,
+            password: hashedPassword,
+            isAdmin // ✅ Store Admin Status Based on Credentials
         });
 
         await newUser.save();
@@ -54,14 +54,7 @@ router.post("/signup", async (req, res) => {
         res.status(500).send("<script>alert('Server Error, Try Again!'); window.location='/signup';</script>");
     }
 });
-
-// ✅ Render Login Page
-router.get("/login", (req, res) => {
-    res.render("login");
-});
-
-// ✅ Handle Login (Verify Email & Password for Admins)
-router.post("/login", async (req, res) => {
+router.post("/login/user", async (req, res) => {
     try {
         const { email, password } = req.body;
 
@@ -77,13 +70,51 @@ router.post("/login", async (req, res) => {
             return res.status(400).send("<script>alert('Invalid email or password!'); window.location='/login';</script>");
         }
 
-        // ✅ Verify if User is an Admin (Check against ADMIN_CREDENTIALS)
-        let isAdmin = false;
-        if (ADMIN_CREDENTIALS[email] && password === ADMIN_CREDENTIALS[email]) {
-            isAdmin = true; // ✅ Admins are identified by both email & password match
+        // ✅ Store user session
+        req.session.user = {
+            id: user._id,
+            firstName: user.firstName,
+            email: user.email,
+            isAdmin: user.isAdmin || false  // ✅ Check if user is Admin
+        };
+
+        req.session.isAdmin = user.isAdmin || false;
+
+        // ✅ Redirect to the home page
+        res.redirect("/");
+
+    } catch (error) {
+        console.error("❌ Login Error:", error);
+        res.status(500).send("<script>alert('Server Error, Try Again!'); window.location='/login';</script>");
+    }
+});
+
+// ✅ Render Login Page
+router.get("/login", (req, res) => {
+    res.render("login");
+});
+
+// ✅ Handle User Login
+router.post("/login", async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // ✅ Check if User Exists
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).send("<script>alert('Invalid email or password!'); window.location='/login';</script>");
         }
 
-        // ✅ Store user session
+        // ✅ Compare Passwords
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        if (!passwordMatch) {
+            return res.status(400).send("<script>alert('Invalid email or password!'); window.location='/login';</script>");
+        }
+
+        // ✅ Verify if User is Admin (Using Stored Credentials)
+        let isAdmin = ADMIN_CREDENTIALS[email] && password === ADMIN_CREDENTIALS[email];
+
+        // ✅ Store User Session
         req.session.user = {
             id: user._id,
             firstName: user.firstName,
@@ -91,7 +122,7 @@ router.post("/login", async (req, res) => {
             isAdmin: isAdmin
         };
 
-        req.session.isAdmin = isAdmin; // ✅ Store admin status separately
+        req.session.isAdmin = isAdmin; // ✅ Store Admin Status Separately
 
         req.session.save(() => {
             res.redirect("/");
@@ -99,6 +130,37 @@ router.post("/login", async (req, res) => {
 
     } catch (error) {
         console.error("❌ Login Error:", error);
+        res.status(500).send("<script>alert('Server Error, Try Again!'); window.location='/login';</script>");
+    }
+});
+
+// ✅ Handle Owner Login (✅ Admins Are Verified Here)
+router.post("/login/owner", async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // ✅ Check if the Email Matches Any Admin Credential
+        let isAdmin = ADMIN_CREDENTIALS[email] && password === ADMIN_CREDENTIALS[email];
+
+        // ✅ Allow Only Admins to Log In as Owner
+        if (!isAdmin) {
+            return res.status(403).send("<script>alert('Access Denied: Only Admins Can Log In as Owners'); window.location='/login';</script>");
+        }
+
+        // ✅ Store Admin Session
+        req.session.user = {
+            email,
+            isAdmin: true
+        };
+
+        req.session.isAdmin = true;
+
+        req.session.save(() => {
+            res.redirect("/"); // ✅ Redirect to Admin Dashboard
+        });
+
+    } catch (error) {
+        console.error("❌ Owner Login Error:", error);
         res.status(500).send("<script>alert('Server Error, Try Again!'); window.location='/login';</script>");
     }
 });

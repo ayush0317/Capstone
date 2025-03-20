@@ -86,12 +86,32 @@ const menuRoutes = require("./routes/menu");
 const authRoutes = require("./routes/auth");
 const locationRoutes = require("./routes/location");
 
+const orderRoutes = require("./routes/order");
+app.use("/order", orderRoutes);
+
 app.use("/menu", menuRoutes);
+const cartRoutes = require("./routes/cart");
+app.use("/cart", cartRoutes);
+const reportsRoutes = require("./routes/reports");
+app.use("/reports", reportsRoutes);
+
+app.get("/checkout", (req, res) => {
+    res.render("checkout", {
+        user: req.session.user
+    });
+});
+const tableRoutes = require("./routes/table");
+app.use("/tables", tableRoutes);
+// ✅ API to Book a Table
+// ✅ Routes
+const reservationRoutes = require("./routes/reservation");
+app.use("/reserve", reservationRoutes);
+app.use("/", tableRoutes);
 app.use("/", authRoutes);
 app.use("/", locationRoutes);
 
 // ✅ Start Server
-const PORT = 3000;
+const PORT = 3001;
 app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
 });

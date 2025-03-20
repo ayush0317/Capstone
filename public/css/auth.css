@@ -1,68 +1,96 @@
-/* 🔹 Background for Sign In & Sign Up */
+/* 🔹 General Styling */
 body {
     background: url('/Images/111.png') no-repeat center center/cover;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(8px);
 }
 
-/* 🔹 Form Container */
-.form-container {
-    background: rgba(0, 0, 0, 0.8);
-    padding: 40px;
+/* 🔹 Login Box - Updated Background */
+.login-container {
+    width: 400px;
+    background: rgba(20, 20, 20, 0.9); /* Slightly lighter black with transparency */
+    padding: 30px;
     border-radius: 10px;
-    width: 100%;
-    max-width: 400px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
     color: white;
     text-align: center;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+.container mt-5{
+    width: 400px;
+    background: rgba(20, 20, 20, 0.9); /* Slightly lighter black with transparency */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    color: white;
+    text-align: center;
 }
 
-/* 🔹 Form Input Styling */
-.form-control {
-    background: rgba(255, 255, 255, 0.2);
+.login-box h2 {
+    margin-bottom: 20px;
+}
+
+/* 🔹 Tab Navigation */
+.nav-tabs {
+    border-bottom: none;
+}
+
+.nav-item button {
+    background: none;
     border: none;
     color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 10px 15px;
+    cursor: pointer;
 }
 
-.form-control::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.form-control:focus {
-    background: rgba(255, 255, 255, 0.3);
-    color: white;
-}
-
-/* 🔹 Button Styling */
-.btn-custom {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    transition: all 0.3s ease;
-}
-
-.btn-custom:hover {
-    background-color: #218838;
-}
-
-/* 🔹 Link Styling */
-.text-link {
-    color: #f8f9fa;
-    text-decoration: underline;
-}
-
-.text-link:hover {
+.nav-item .active {
+    border-bottom: 2px solid #ffc107;
     color: #ffc107;
 }
 
-/* 🔹 Password Validation Message */
-.password-requirements {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.7);
-    text-align: left;
-    margin-top: -10px;
-    margin-bottom: 10px;
+/* 🔹 Hide Other Login Forms Initially */
+.login-form {
+    display: none;
+}
+
+.login-form.active {
+    display: block;
+}
+
+/* 🔹 Input Fields */
+.form-control {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+/* 🔹 Custom Button */
+.btn-custom {
+    background: #ffc107;
+    border: none;
+    padding: 10px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.btn-custom:hover {
+    background: #ff9800;
+}
+
+/* 🔹 Forgot Password & Signup Links */
+.text-link {
+    color: #ffc107;
+    font-weight: bold;
+}
+
+.text-link:hover {
+    text-decoration: underline;
 }

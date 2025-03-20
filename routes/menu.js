@@ -104,4 +104,61 @@ router.post("/delete/:id", checkAdmin, async (req, res) => {
     }
 });
 
+// ✅ Fetch Cart Items from MongoDB
+router.get("/cart", async (req, res) => {
+    try {
+        const cart = await CartItem.find({ userId: req.session.user?._id || "guest" });
+        res.json(cart);
+    } catch (error) {
+        console.error("Error fetching cart:", error);
+        res.status(500).json([]);
+    }
+});
+
+// ✅ Add Item to MongoDB Cart
+router.post("/cart/add", async (req, res) => {
+    try {
+        const { itemId, name, price } = req.body;
+        let userId = req.session.user ? req.session.user._id : "guest";
+
+        let cartItem = await CartItem.findOne({ userId, itemId });
+
+        if (cartItem) {
+            cartItem.quantity += 1;
+        } else {
+            cartItem = new CartItem({ userId, itemId, name, price, quantity: 1 });
+        }
+
+        await cartItem.save();
+        res.json({ success: true });
+    } catch (error) {
+        console.error("Error adding to cart:", error);
+        res.status(500).json({ success: false });
+    }
+});
+
+// ✅ Remove Item from Cart
+router.post("/cart/remove", async (req, res) => {
+    try {
+        let userId = req.session.user ? req.session.user._id : "guest";
+        await CartItem.findOneAndDelete({ userId, itemId: req.body.itemId });
+        res.json({ success: true });
+    } catch (error) {
+        console.error("Error removing from cart:", error);
+        res.status(500).json({ success: false });
+    }
+});
+
+// ✅ Clear Cart after Checkout
+router.post("/cart/clear", async (req, res) => {
+    try {
+        let userId = req.session.user ? req.session.user._id : "guest";
+        await CartItem.deleteMany({ userId });
+        res.json({ success: true });
+    } catch (error) {
+        console.error("Error clearing cart:", error);
+        res.status(500).json({ success: false });
+    }
+});
+
 module.exports = router;
