@@ -85,6 +85,8 @@ app.get("/", async (req, res) => {
 const menuRoutes = require("./routes/menu");
 const authRoutes = require("./routes/auth");
 const locationRoutes = require("./routes/location");
+const reportsRoute = require("./routes/reports");
+app.use("/", reportsRoute);
 
 const orderRoutes = require("./routes/order");
 app.use("/order", orderRoutes);
