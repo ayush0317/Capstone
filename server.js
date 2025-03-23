@@ -39,33 +39,10 @@ app.use((req, res, next) => {
 // ✅ Set EJS as the View Engine
 app.set("view engine", "ejs");
 
-// ✅ Load Default Locations If Database is Empty
-async function loadDefaultLocations() {
-    const existingLocations = await Location.find();
-    if (existingLocations.length === 0) {
-        await Location.insertMany([
-            {
-                name: "Mumbai Grand Dining",
-                address: "Nariman Point, Mumbai, India",
-                image: "/Images/777.png"
-            },
-            {
-                name: "Delhi Rooftop Lounge",
-                address: "Aerocity, New Delhi, India",
-                image: "/Images/888.png"
-            },
-            {
-                name: "Punjab Authentic Kitchen",
-                address: "Amritsar, Punjab, India",
-                image: "/Images/999.png"
-            }
-        ]);
-        console.log("✅ Default Locations Loaded");
-    }
-}
+
 
 // ✅ Ensure Default Locations Exist Before Server Starts
-loadDefaultLocations();
+
 
 // ✅ Render Home Page
 app.get("/", async (req, res) => {
