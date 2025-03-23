@@ -11,13 +11,11 @@ const app = express();
 // ✅ Enable CORS
 app.use(cors());
 
-// ✅ Connect to MongoDB
-mongoose.connect("mongodb://localhost:27017/userDB", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-    .then(() => console.log("✅ Connected to MongoDB"))
-    .catch(err => console.log("❌ MongoDB Connection Error:", err));
+require('dotenv').config();
+
+mongoose.connect(process.env.MONGO_URL)
+  .then(() => console.log("✅ Connected to MongoDB"))
+  .catch(err => console.error("❌ MongoDB Error:", err));
 
 // ✅ Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
