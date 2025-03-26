@@ -1,19 +1,26 @@
 const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    email: { type: String, required: true },
-    address: { type: String, required: true },
-    paymentMethod: { type: String, required: true },
-    items: [
-        {
-            name: { type: String, required: true },
-            quantity: { type: Number, required: true },
-            price: { type: Number, required: true }
-        }
-    ],
-    totalAmount: { type: Number, required: true },
-    createdAt: { type: Date, default: Date.now }
+  name: String,
+  email: String,
+  address: String,
+  paymentMethod: String,
+  items: [
+    {
+      name: String,
+      quantity: Number,
+      price: Number
+    }
+  ],
+  totalAmount: Number,
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
+  status: {
+    type: String,
+    default: "Preparing" // Optional: Set default value
+  }
 });
 
 module.exports = mongoose.model("Order", orderSchema);

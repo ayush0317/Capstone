@@ -1,0 +1,53 @@
+body {
+    background: url('/Images/666.png') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+    backdrop-filter: blur(4px);
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .container {
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 30px;
+    border-radius: 10px;
+    color: #fff;
+  }
+  
+  h2, h4 {
+    color: #ffc107;
+  }
+  
+  label {
+    font-weight: bold;
+    color: #ccc;
+  }
+  
+  input.form-control, select.form-select {
+    background-color: #222;
+    color: white;
+    border: 1px solid #444;
+  }
+  
+  input.form-control:focus, select.form-select:focus {
+    background-color: #111;
+    color: #fff;
+    border-color: #ffc107;
+  }
+  
+  .btn-success {
+    background-color: #28a745;
+    border: none;
+    font-weight: bold;
+  }
+  
+  .btn-danger {
+    background-color: #dc3545;
+    border: none;
+  }
+  
+  .list-group-item {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+  

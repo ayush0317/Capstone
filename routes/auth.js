@@ -167,9 +167,25 @@ router.post("/login/owner", async (req, res) => {
 
 // ✅ Handle Logout
 router.get("/logout", (req, res) => {
-    req.session.destroy(() => {
-        res.redirect("/login");
+    req.session.destroy((err) => {
+        if (err) {
+            console.error("❌ Error destroying session:", err);
+            return res.redirect("/"); // fallback
+        }
+        res.clearCookie("connect.sid"); // Clear session cookie
+        res.redirect("/"); // 👈 Redirect to homepage instead of login
     });
 });
 
+// middlewares/auth.js
+function requireLogin(req, res, next) {
+    if (req.session && req.session.user) {
+      next(); // ✅ User is logged in
+    } else {
+      res.redirect('/login'); // 🚫 Redirect to login
+    }
+  }
+  
+  module.exports = { requireLogin };
+  
 module.exports = router;

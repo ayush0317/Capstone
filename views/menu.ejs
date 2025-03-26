@@ -1,211 +1,223 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Menu | Restaurant Name</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/menu.css">
-</head>
-<body>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Our Menu | Restaurant Name</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="stylesheet" href="/css/menu.css">
+    </head>
+    <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand fw-bold text-uppercase" href="/">Restaurant Name</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/menu">Menu</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand fw-bold text-uppercase" href="/">Restaurant Name</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/menu">Menu</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
 
-                    <% if (user) { %>
-                        <li class="nav-item">
-                            <span class="nav-link text-white">👤 <%= user.firstName %></span>
-                        </li>
-                        <li class="nav-item ms-3">
-                            <a class="btn btn-danger" href="/logout">Logout</a>
-                        </li>
-                    <% } else { %>
-                        <li class="nav-item ms-3">
-                            <a class="btn btn-outline-light" href="/login">Sign In</a>
-                        </li>
-                        <li class="nav-item ms-2">
-                            <a class="btn btn-success" href="/signup">Sign Up</a>
-                        </li>
-                    <% } %>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <div class="menu-container d-flex">
-        <!-- ✅ Left Sidebar (Menu Categories) -->
-        <aside class="menu-sidebar">
-            <h3 class="menu-title">Categories</h3>
-            <ul class="menu-list">
-                <li><a href="#" onclick="showCategory('all')">🍽️ All</a></li>
-                <li><a href="#" onclick="showCategory('appetizers')">🥂 Appetizers</a></li>
-                <li><a href="#" onclick="showCategory('main-course')">🍷 Main Course</a></li>
-                <li><a href="#" onclick="showCategory('desserts')">🍮 Desserts</a></li>
-                <li><a href="#" onclick="showCategory('beverages')">☕ Beverages</a></li>
-                <li><a href="#" onclick="showCategory('special-dishes')">💎 Signature Dishes</a></li>
-            </ul>
-        </aside>
-
-        <!-- ✅ Main Content (All Menu Categories) -->
-        <main class="menu-content">
-            <% if (isAdmin) { %>
-                <div class="text-center my-3">
-                    <a href="/menu/add" class="btn btn-primary">➕ Add New Item</a>
+                        <% if (user) { %>
+                            <li class="nav-item">
+                                <span class="nav-link text-white">👤 <%= user.firstName %></span>
+                            </li>
+                            <li class="nav-item ms-3">
+                                <a class="btn btn-danger" href="/logout">Logout</a>
+                            </li>
+                        <% } else { %>
+                            <li class="nav-item ms-3">
+                                <a class="btn btn-outline-light" href="/login">Sign In</a>
+                            </li>
+                            <li class="nav-item ms-2">
+                                <a class="btn btn-success" href="/signup">Sign Up</a>
+                            </li>
+                        <% } %>
+                    </ul>
                 </div>
-            <% } %>
+            </div>
+        </nav>
 
-            <% let categories = { 
-                "appetizers": vegAppetizers, 
-                "main-course": vegMainCourse, 
-                "desserts": desserts, 
-                "beverages": beverages, 
-                "special-dishes": specialDishes 
-            }; %>
+        <div class="menu-container d-flex">
+            <!-- ✅ Left Sidebar (Menu Categories) -->
+            <aside class="menu-sidebar">
+                <h3 class="menu-title">Categories</h3>
+                <ul class="menu-list">
+                    <li><a href="#" onclick="showCategory('all')">🍽️ All</a></li>
+                    <li><a href="#" onclick="showCategory('appetizers')">🥂 Appetizers</a></li>
+                    <li><a href="#" onclick="showCategory('main-course')">🍷 Main Course</a></li>
+                    <li><a href="#" onclick="showCategory('desserts')">🍮 Desserts</a></li>
+                    <li><a href="#" onclick="showCategory('beverages')">☕ Beverages</a></li>
+                    <li><a href="#" onclick="showCategory('special-dishes')">💎 Signature Dishes</a></li>
+                </ul>
+            </aside>
 
-            <% for (let [category, items] of Object.entries(categories)) { %>
-                <section id="<%= category %>" class="menu-category">
-                    <h2 class="section-title">🍽️ <%= category.replace("-", " ").toUpperCase() %></h2>
-                    <div class="row">
-                        <% items.forEach(item => { %>
-                            <div class="col-md-6">
-                                <div class="menu-card">
-                                    <img src="/Images/<%= item.image %>" alt="<%= item.name %>">
-                                    <div class="menu-details">
-                                        <h5><%= item.name %></h5>
-                                        <p><%= item.description %></p>
-                                        <span class="price">₹<%= item.price %></span>
-                                        <button class="btn btn-add add-to-cart-btn"
-                                        data-id="<%= item._id %>" 
-                                        data-name="<%= item.name %>" 
-                                        data-price="<%= item.price %>">
-                                        Add to Cart 
-                                    </button>
-                                    
-                                    
-                                        <% if (isAdmin) { %>
-                                            <div class="d-flex justify-content-center gap-2 mt-2">
-                                                <a href="/menu/edit/<%= item._id %>" class="btn btn-warning btn-sm">✏️ Edit</a>
-                                                <form action="/menu/delete/<%= item._id %>" method="POST" onsubmit="return confirm('Are you sure?');">
-                                                    <button type="submit" class="btn btn-danger btn-sm">🗑️ Delete</button>
-                                                </form>
-                                            </div>
-                                        <% } %>
+            <!-- ✅ Main Content (All Menu Categories) -->
+            <main class="menu-content">
+                <% if (isAdmin) { %>
+                    <div class="text-center my-3">
+                        <a href="/menu/add" class="btn btn-primary">➕ Add New Item</a>
+                    </div>
+                <% } %>
 
+                <% let categories = { 
+                    "appetizers": vegAppetizers, 
+                    "main-course": vegMainCourse, 
+                    "desserts": desserts, 
+                    "beverages": beverages, 
+                    "special-dishes": specialDishes 
+                }; %>
+
+                <% for (let [category, items] of Object.entries(categories)) { %>
+                    <section id="<%= category %>" class="menu-category">
+                        <h2 class="section-title">🍽️ <%= category.replace("-", " ").toUpperCase() %></h2>
+                        <div class="row">
+                            <% items.forEach(item => { %>
+                                <div class="col-md-6">
+                                    <div class="menu-card">
+                                        <img src="/Images/<%= item.image %>" alt="<%= item.name %>">
+                                        <div class="menu-details">
+                                            <h5><%= item.name %></h5>
+                                            <p><%= item.description %></p>
+                                            <span class="price">₹<%= item.price %></span>
+                                            <button class="btn btn-add add-to-cart-btn"
+                                            data-id="<%= item._id %>" 
+                                            data-name="<%= item.name %>" 
+                                            data-price="<%= item.price %>">
+                                            Add to Cart 
+                                        </button>
+                                        
+                                        
+                                            <% if (isAdmin) { %>
+                                                <div class="d-flex justify-content-center gap-2 mt-2">
+                                                    <a href="/menu/edit/<%= item._id %>" class="btn btn-warning btn-sm">✏️ Edit</a>
+                                                    <form action="/menu/delete/<%= item._id %>" method="POST" onsubmit="return confirm('Are you sure?');">
+                                                        <button type="submit" class="btn btn-danger btn-sm">🗑️ Delete</button>
+                                                    </form>
+                                                </div>
+                                            <% } %>
+
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        <% }) %>
-                    </div>
-                </section>
-            <% } %>
-        </main>
-
-        <!-- ✅ Right Sidebar (Shopping Cart) -->
-        <aside class="cart-sidebar">
-            <h3 class="cart-title">🛒 Your Cart</h3>
-            <div id="cart-items">
-                <p class="text-center">No items in cart.</p>
-            </div>
-            <hr>
-            <div class="cart-total">
-                <h5>Total: ₹<span id="cart-total">0</span></h5>
-            </div>
-            <a href="/checkout" class="btn btn-success w-100 mt-3">Checkout</a>
-
-        </aside>
-    </div>
-
-    <script>
-        async function loadCart() {
-            let response = await fetch("/cart/items", { cache: "no-store" });
-            let cart = await response.json();
-            updateCartDisplay(cart);
-        }
-
-        function updateCartDisplay(cart) {
-            let cartContainer = document.getElementById("cart-items");
-            let cartTotal = document.getElementById("cart-total");
-            cartContainer.innerHTML = "";
-            let total = 0;
-
-            cart.forEach(item => {
-                total += item.price * item.quantity;
-                cartContainer.innerHTML += `
-                    <div class="cart-item d-flex justify-content-between align-items-center">
-                        <span>${item.name} (₹${item.price})</span>
-                        <div class="d-flex align-items-center">
-                            <button class="btn btn-sm btn-danger" onclick="updateCart('${item._id}', -1)">➖</button>
-                            <span class="mx-2">${item.quantity}</span>
-                            <button class="btn btn-sm btn-success" onclick="updateCart('${item._id}', 1)">➕</button>
-                            <button class="btn btn-sm btn-danger ms-2" onclick="removeFromCart('${item._id}')">🗑️</button>
+                            <% }) %>
                         </div>
-                    </div>
-                `;
-            });
+                    </section>
+                <% } %>
+            
+            </main>
 
-            cartTotal.innerText = total.toFixed(2);
-        }
+            <!-- ✅ Right Sidebar (Shopping Cart) -->
+            <aside class="cart-sidebar">
+                <h3 class="cart-title">🛒 Your Cart</h3>
+                <div id="cart-items">
+                    <p class="text-center">No items in cart.</p>
+                </div>
+                <hr>
+                <div class="cart-total">
+                    <h5>Total: ₹<span id="cart-total">0</span></h5>
+                </div>
+                <a href="/checkout" class="btn btn-success w-100 mt-3">Checkout</a>
 
-        async function updateCart(itemId, change) {
-            let response = await fetch("/cart/update", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ itemId, change })
-            });
+            </aside>
+        </div>
 
-            let result = await response.json();
-            if (result.success) {
-                loadCart();
+        <script>
+               function showCategory(category) {
+        const sections = document.querySelectorAll(".menu-category");
+        sections.forEach(section => {
+            if (category === "all") {
+                section.style.display = "block";
+            } else {
+                section.style.display = section.id === category ? "block" : "none";
             }
-        }
-
-        async function removeFromCart(itemId) {
-            let response = await fetch("/cart/remove", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ itemId })
-            });
-
-            let result = await response.json();
-            if (result.success) {
-                loadCart();
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            document.querySelectorAll(".add-to-cart-btn").forEach(button => {
-                button.addEventListener("click", async function () {
-                    let name = button.getAttribute("data-name");
-                    let price = parseFloat(button.getAttribute("data-price"));
-
-                    let response = await fetch("/cart/add", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ name, price })
-                    });
-
-                    let result = await response.json();
-                    if (result.success) {
-                        loadCart();
-                    }
-                });
-            });
-
-            loadCart();
         });
-    </script>
-    
+    }
 
-</body>
-</html>
+            async function loadCart() {
+                let response = await fetch("/cart/items", { cache: "no-store" });
+                let cart = await response.json();
+                updateCartDisplay(cart);
+            }
+
+            function updateCartDisplay(cart) {
+                let cartContainer = document.getElementById("cart-items");
+                let cartTotal = document.getElementById("cart-total");
+                cartContainer.innerHTML = "";
+                let total = 0;
+
+                cart.forEach(item => {
+                    total += item.price * item.quantity;
+                    cartContainer.innerHTML += `
+                        <div class="cart-item d-flex justify-content-between align-items-center">
+                            <span>${item.name} (₹${item.price})</span>
+                            <div class="d-flex align-items-center">
+                                <button class="btn btn-sm btn-danger" onclick="updateCart('${item._id}', -1)">➖</button>
+                                <span class="mx-2">${item.quantity}</span>
+                                <button class="btn btn-sm btn-success" onclick="updateCart('${item._id}', 1)">➕</button>
+                                <button class="btn btn-sm btn-danger ms-2" onclick="removeFromCart('${item._id}')">🗑️</button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                cartTotal.innerText = total.toFixed(2);
+            }
+
+            async function updateCart(itemId, change) {
+                let response = await fetch("/cart/update", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ itemId, change })
+                });
+
+                let result = await response.json();
+                if (result.success) {
+                    loadCart();
+                }
+            }
+
+            async function removeFromCart(itemId) {
+                let response = await fetch("/cart/remove", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ itemId })
+                });
+
+                let result = await response.json();
+                if (result.success) {
+                    loadCart();
+                }
+            }
+
+            document.addEventListener("DOMContentLoaded", () => {
+                document.querySelectorAll(".add-to-cart-btn").forEach(button => {
+                    button.addEventListener("click", async function () {
+                        let name = button.getAttribute("data-name");
+                        let price = parseFloat(button.getAttribute("data-price"));
+
+                        let response = await fetch("/cart/add", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ name, price })
+                        });
+
+                        let result = await response.json();
+                        if (result.success) {
+                            loadCart();
+                        }
+                    });
+                });
+
+                loadCart();
+            });
+        </script>
+        
+
+    </body>
+    </html>

@@ -11,11 +11,13 @@ const app = express();
 // ✅ Enable CORS
 app.use(cors());
 
-require('dotenv').config();
-
-mongoose.connect(process.env.MONGO_URL)
-  .then(() => console.log("✅ Connected to MongoDB"))
-  .catch(err => console.error("❌ MongoDB Error:", err));
+// ✅ Connect to MongoDB
+mongoose.connect("mongodb://localhost:27017/userDB", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+    .then(() => console.log("✅ Connected to MongoDB"))
+    .catch(err => console.log("❌ MongoDB Connection Error:", err));
 
 // ✅ Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -65,6 +67,9 @@ app.use("/", reportsRoute);
 
 const orderRoutes = require("./routes/order");
 app.use("/order", orderRoutes);
+const profileRoutes = require("./routes/profile");
+app.use("/", profileRoutes);
+
 
 app.use("/menu", menuRoutes);
 const cartRoutes = require("./routes/cart");
@@ -86,6 +91,11 @@ app.use("/reserve", reservationRoutes);
 app.use("/", tableRoutes);
 app.use("/", authRoutes);
 app.use("/", locationRoutes);
+const reservationRoutess = require("./routes/reservation");
+app.use("/", reservationRoutess);
+
+const pastOrderRoutes = require("./routes/pastorders"); // or whatever filename you use
+app.use("/", pastOrderRoutes);
 
 // ✅ Start Server
 const PORT = 3001;
