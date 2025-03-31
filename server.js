@@ -11,7 +11,7 @@ const app = express();
 // ✅ Enable CORS
 app.use(cors());
 
-mongoose.connect("mongodb://mongo:cvpletVKyDBPRZNGrKqrApHcgNvjMTut@tramway.proxy.rlwy.net:22101", {
+mongoose.connect("mongodb://mongo:CKqoDUtOZWhRHyhiMeymoCqxDYVKHDQD@switchyard.proxy.rlwy.net:30876", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
