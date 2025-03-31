@@ -11,13 +11,12 @@ const app = express();
 // ✅ Enable CORS
 app.use(cors());
 
-// ✅ Connect to MongoDB
-mongoose.connect("mongodb://localhost:27017/userDB", {
+mongoose.connect("mongodb://mongo:cvpletVKyDBPRZNGrKqrApHcgNvjMTut@tramway.proxy.rlwy.net:22101", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
-    .then(() => console.log("✅ Connected to MongoDB"))
-    .catch(err => console.log("❌ MongoDB Connection Error:", err));
+.then(() => console.log("✅ Connected to Railway MongoDB"))
+.catch(err => console.log("❌ MongoDB Connection Error:", err));
 
 // ✅ Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -39,7 +38,8 @@ app.use((req, res, next) => {
 // ✅ Set EJS as the View Engine
 app.set("view engine", "ejs");
 
-
+const feedbackRoutes = require('./routes/thankyou');
+app.use("/thankyou", feedbackRoutes);
 
 // ✅ Ensure Default Locations Exist Before Server Starts
 
@@ -77,6 +77,8 @@ app.use("/cart", cartRoutes);
 const reportsRoutes = require("./routes/reports");
 app.use("/reports", reportsRoutes);
 
+
+
 app.get("/checkout", (req, res) => {
     res.render("checkout", {
         user: req.session.user
@@ -84,8 +86,8 @@ app.get("/checkout", (req, res) => {
 });
 const tableRoutes = require("./routes/table");
 app.use("/tables", tableRoutes);
-// ✅ API to Book a Table
-// ✅ Routes
+app.use("/order", orderRoutes); 
+
 const reservationRoutes = require("./routes/reservation");
 app.use("/reserve", reservationRoutes);
 app.use("/", tableRoutes);

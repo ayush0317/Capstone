@@ -175,4 +175,21 @@ router.get("/past-orders", requireLogin, async (req, res) => {
         res.status(500).send("Failed to load past orders.");
     }
 });
+// ✅ Thank You Page (GET)
+router.get("/", (req, res) => {
+    res.render("thankyou");
+});
+
+// ✅ Feedback Submission (POST)
+router.post("/", async (req, res) => {
+    const { rating, email } = req.body;
+    try {
+        await Feedback.create({ rating, email });
+        res.redirect("/"); // or redirect to confirmation
+    } catch (error) {
+        console.error("❌ Feedback Save Error:", error);
+        res.status(500).send("Something went wrong.");
+    }
+});
+
 module.exports = router;

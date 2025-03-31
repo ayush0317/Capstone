@@ -160,9 +160,8 @@
 
             let result = await orderResponse.json();
             if (result.success) {
-                alert("🎉 Order placed successfully! A confirmation email has been sent.");
                 await fetch("/cart/clear", { method: "POST" });
-                window.location.href = "/";
+                window.location.href = "/thankyou/";
             } else {
                 alert("❌ Error processing order. Please try again.");
             }

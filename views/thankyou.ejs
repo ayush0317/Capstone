@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You for Ordering</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .star-rating {
+      direction: rtl;
+      font-size: 2rem;
+      unicode-bidi: bidi-override;
+    }
+
+    .star-rating input {
+      display: none;
+    }
+
+    .star-rating label {
+      color: #ccc;
+      cursor: pointer;
+    }
+
+    .star-rating input:checked ~ label,
+    .star-rating label:hover,
+    .star-rating label:hover ~ label {
+      color: #ffc107;
+    }
+  </style>
+</head>
+<body class="bg-dark text-white">
+  <div class="container text-center mt-5 pt-5">
+    <h1 class="text-success">🎉 Thank You for Your Order!</h1>
+    <p class="lead">Your order has been successfully placed.</p>
+    <p>It is being prepared and will be ready for pickup at the counter within 15–30 minutes depending on order size.</p>
+
+    <div class="mt-4 mb-3">
+      <a href="/menu" class="btn btn-warning me-2">Order More</a>
+      <a href="/" class="btn btn-outline-light">Go to Homepage</a>
+    </div>
+
+    <div class="mt-5">
+      <h4>⭐ Rate Your Ordering Experience</h4>
+      <form action="/thankyou/feedback" method="POST">
+        <div class="star-rating my-3">
+          <% for (let i = 5; i >= 1; i--) { %>
+            <input type="radio" name="rating" id="star<%= i %>" value="<%= i %>">
+            <label for="star<%= i %>">★</label>
+          <% } %>
+        </div>
+        <input type="hidden" name="email" value="<%= user?.email || '' %>">
+        <button type="submit" class="btn btn-success">Submit Feedback</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
