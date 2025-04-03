@@ -70,6 +70,17 @@ body {
     color: white;
     border-radius: 12px;
 }
+/* 🔧 Fix white dropdown issue in dark theme */
+.form-select,
+.form-select option {
+    background-color: rgba(0, 0, 0, 0.9);  /* Dark background */
+    color: white;                          /* White text */
+}
+
+.form-select:focus {
+    border-color: #ffc107;
+    box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+}
 
 /* 🔹 Section Titles */
 .section-title {
@@ -232,3 +243,71 @@ body {
         padding: 15px;
     }
 }
+/* ✅ Mobile (≤576px) */
+@media (max-width: 576px) {
+    .menu-container {
+      flex-direction: column;
+      padding: 0 10px;
+    }
+  
+    .menu-sidebar {
+      width: 100%;
+      height: auto;
+      position: static;
+      padding: 15px;
+      border-right: none;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+      margin-bottom: 20px;
+    }
+  
+    .menu-content {
+      margin: 0;
+      padding: 10px;
+      border-radius: 8px;
+    }
+  
+    .menu-card {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .menu-card img {
+      margin: 0 0 10px 0;
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+  
+    .cart-sidebar {
+      width: 100%;
+      position: static;
+      height: auto;
+      padding: 15px;
+      margin-top: 20px;
+      box-shadow: none;
+      border-radius: 8px;
+    }
+  
+    .cart-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .cart-item span,
+    .cart-item button {
+      margin-top: 5px;
+      width: 100%;
+      text-align: left;
+    }
+  
+    .btn-add,
+    .btn-success {
+      width: 100%;
+    }
+  
+    .section-title {
+      font-size: 1.5rem;
+    }
+  }
+  

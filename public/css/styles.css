@@ -388,7 +388,128 @@ body {
     cursor: not-allowed;
 }
 .footer {
-    margin-top: 2000px;
+    margin-top: 1px;
   }
   
- 
+ /* ✅ Tablet Devices (max-width: 768px) */
+@media (max-width: 768px) {
+    .hero {
+      padding: 30px 15px;
+      font-size: 1rem;
+      width: 90%;
+    }
+  
+    .about-section .about-title {
+      font-size: 1.6rem;
+    }
+  
+    .about-section .about-text {
+      font-size: 1rem;
+    }
+  
+    .locations-section .card img,
+    .card img,
+    .experience-card img {
+      height: 200px;
+    }
+  
+    .dish-card img {
+      height: 100px;
+    }
+  
+    .experience-title,
+    .booking-title {
+      font-size: 2rem;
+    }
+  
+    .experience-text,
+    .booking-text {
+      font-size: 1rem;
+    }
+  
+    .booking-benefits {
+      font-size: 1rem;
+    }
+  
+    .map-frame {
+      height: 280px;
+    }
+  
+    .table-btn {
+      width: 120px;
+      padding: 12px;
+    }
+  
+    .carousel-inner img {
+      height: 70vh;
+    }
+  }
+  
+  /* ✅ Mobile Devices (max-width: 576px) */
+  @media (max-width: 576px) {
+    .hero {
+      padding: 25px 10px;
+      width: 95%;
+    }
+  
+    .carousel-inner img {
+      height: 60vh;
+    }
+  
+    .about-section {
+      padding: 60px 15px;
+    }
+  
+    .about-section .about-title {
+      font-size: 1.4rem;
+    }
+  
+    .about-section img {
+      height: 250px;
+    }
+  
+    .special-section,
+    .experience-section,
+    .new-booking-section,
+    .locations-section {
+      padding: 60px 15px;
+    }
+  
+    .experience-title,
+    .booking-title {
+      font-size: 1.8rem;
+    }
+  
+    .experience-text,
+    .booking-text {
+      font-size: 1rem;
+    }
+  
+    .booking-image {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  
+    .dish-card img {
+      height: 90px;
+    }
+  
+    .chef-image {
+      width: 90%;
+      max-width: 250px;
+    }
+  
+    .table-layout {
+      gap: 10px;
+    }
+  
+    .table-btn {
+      width: 100px;
+      padding: 10px;
+    }
+  
+    .footer {
+      text-align: center;
+    }
+  }
+  

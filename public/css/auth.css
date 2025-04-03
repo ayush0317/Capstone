@@ -6,6 +6,23 @@ body {
     align-items: center;
     justify-content: center;
 }
+/* 🎨 Fix white dropdown issue in dark-themed form */
+select.form-control,
+select.form-control option {
+    background-color: rgba(0, 0, 0, 0.9); /* Dark dropdown background */
+    color: white;                        /* White text for options */
+}
+
+/* 🔶 Optional yellow border for dropdowns */
+select.form-control {
+    border: 2px solid #ffc107;
+}
+
+/* ✨ On focus (when dropdown is clicked) */
+select.form-control:focus {
+    border-color: #ffc107;
+    box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+}
 
 /* 🔹 Login Box - Updated Background */
 .login-container {
@@ -93,4 +110,53 @@ body {
 
 .text-link:hover {
     text-decoration: underline;
+}
+/* ✅ Tablet View (≤768px) */
+@media (max-width: 768px) {
+    .login-container {
+        width: 90%;
+        padding: 25px;
+    }
+
+    .nav-item button {
+        font-size: 0.95rem;
+        padding: 8px 12px;
+    }
+
+    .btn-custom {
+        padding: 10px 12px;
+    }
+}
+
+/* ✅ Mobile View (≤576px) */
+@media (max-width: 576px) {
+    body {
+        flex-direction: column;
+        padding: 20px;
+        height: auto;
+    }
+
+    .login-container {
+        width: 100%;
+        padding: 20px;
+        margin-top: 40px;
+    }
+
+    .login-box h2 {
+        font-size: 1.5rem;
+    }
+
+    .form-control {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .btn-custom {
+        font-size: 1rem;
+        padding: 10px;
+    }
+
+    .nav-item button {
+        font-size: 0.85rem;
+    }
 }

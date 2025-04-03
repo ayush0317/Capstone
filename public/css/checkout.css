@@ -50,4 +50,59 @@ body {
     border-color: rgba(255, 255, 255, 0.1);
     color: #fff;
   }
-  
+  /* ✅ Tablet View (≤768px) */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+  }
+
+  h2, h4 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  input.form-control,
+  select.form-select {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+
+  .btn-success,
+  .btn-danger {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+/* ✅ Mobile View (≤576px) */
+@media (max-width: 576px) {
+  body {
+    padding: 10px;
+  }
+
+  .container {
+    padding: 15px;
+    margin: 10px;
+  }
+
+  h2, h4 {
+    font-size: 1.3rem;
+  }
+
+  label {
+    font-size: 0.95rem;
+  }
+
+  input.form-control,
+  select.form-select {
+    font-size: 0.9rem;
+  }
+
+  .btn-success,
+  .btn-danger {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+}

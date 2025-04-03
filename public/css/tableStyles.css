@@ -47,6 +47,17 @@ h1.text-center {
 .form-control::placeholder {
     color: #ccc;
 }
+/* 🔧 Fix white dropdown issue in dark theme */
+.form-select,
+.form-select option {
+    background-color: rgba(0, 0, 0, 0.9);  /* Dark background */
+    color: white;                          /* White text */
+}
+
+.form-select:focus {
+    border-color: #ffc107;
+    box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+}
 
 .form-control:focus,
 .form-select:focus {
@@ -70,3 +81,61 @@ h1.text-center {
     background-color: #ff9800;
     color: white;
 }
+/* ✅ Tablet Devices (≤768px) */
+@media (max-width: 768px) {
+    .container {
+      max-width: 90%;
+      padding: 30px;
+      margin-top: 100px;
+      margin-bottom: 40px;
+    }
+  
+    h1.text-center {
+      font-size: 2rem;
+      margin-top: 100px;
+      margin-bottom: 25px;
+    }
+  
+    .form-control,
+    .form-select {
+      font-size: 1rem;
+      padding: 10px;
+    }
+  
+    .btn-success {
+      font-size: 1rem;
+      padding: 10px;
+    }
+  }
+  
+  /* ✅ Mobile Devices (≤576px) */
+  @media (max-width: 576px) {
+    .container {
+      max-width: 95%;
+      padding: 20px;
+      margin-top: 80px;
+      margin-bottom: 30px;
+    }
+  
+    h1.text-center {
+      font-size: 1.8rem;
+      margin-top: 80px;
+      margin-bottom: 20px;
+    }
+  
+    .form-label {
+      font-size: 0.95rem;
+    }
+  
+    .form-control,
+    .form-select {
+      font-size: 0.95rem;
+      padding: 8px;
+    }
+  
+    .btn-success {
+      font-size: 0.95rem;
+      padding: 10px;
+    }
+  }
+  

@@ -13,7 +13,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm">
         <div class="container">
-          <a class="navbar-brand fw-bold text-uppercase" href="/">Restaurant Name</a>
+          <a class="navbar-brand fw-bold text-uppercase" href="/">Swadisht</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -22,8 +22,9 @@
             <ul class="navbar-nav ms-auto align-items-center gap-2">
               <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
               <li class="nav-item"><a class="nav-link" href="/menu">Menu</a></li>
-              <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
-              <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+              <a class="nav-link" href="#about">About</a>
+              <a class="nav-link" href="#contact">Contact</a>
+              
       
               <% if (user) { %>
                 <% if (isAdmin) { %>
@@ -56,7 +57,7 @@
       
     <!-- ✅ Hero Section -->
     <div class="hero">
-        <h1>Welcome to Restaurant Name</h1>
+        <h1>Welcome to Swadisht</h1>
         <p>Experience luxury dining with world-class flavors.</p>
         <a href="/tableBooking" class="btn btn-warning btn-lg fw-semibold shadow px-4 py-2 mt-3">Book a Table</a>
     </div>
@@ -99,7 +100,7 @@
         </button>
     </div>
 
-    <section class="about-section">
+    <section class="about-section"  id="about">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6">
@@ -118,82 +119,49 @@
         </div>
     </section>
     
-    <!-- ✅ Our Restaurant Locations Section -->
-    <section class="locations-section py-5">
-        <div class="container">
-            <h2 class="text-center mb-4">OUR LOCATIONS</h2>
-            <p class="text-center">Visit our outlets in these prime locations.</p>
-    
-            <!-- ✅ Admin 'Add Location' Button -->
-            <% if (isAdmin) { %>
-                <div class="text-center mb-4">
-                    <a href="/add" class="btn btn-primary">Add New Location</a>
-                </div>
-            <% } %>
-    
-            <div class="row">
-                <!-- ✅ Default Locations -->
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow">
-                        <img src="/Images/777.png" class="card-img-top" alt="Mumbai Grand Dining">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Mumbai Grand Dining</h5>
-                            <p class="card-text">Nariman Point, Mumbai, India</p>
-                        </div>
-                    </div>
-                </div>
-    
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow">
-                        <img src="/Images/888.png" class="card-img-top" alt="Delhi Rooftop Lounge">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Delhi Rooftop Lounge</h5>
-                            <p class="card-text">Aerocity, New Delhi, India</p>
-                        </div>
-                    </div>
-                </div>
-    
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow">
-                        <img src="/Images/999.png" class="card-img-top" alt="Punjab Authentic Kitchen">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Punjab Authentic Kitchen</h5>
-                            <p class="card-text">Amritsar, Punjab, India</p>
-                        </div>
-                    </div>
-                </div>
-    
-                <!-- ✅ Dynamically Added Locations from MongoDB -->
-                <% locations.forEach(location => { %>
-                    <div class="col-md-4 mb-4">
-                        <div class="card shadow">
-                            <img src="/Images/<%= location.image %>" class="card-img-top" alt="Location Image">
-                            <div class="card-body text-center">
-                                <h5 class="card-title"><%= location.name %></h5>
-                                <p class="card-text"><%= location.address %></p>
-    
-                                <!-- ✅ Admin Edit & Delete Buttons -->
-                                <% if (isAdmin) { %>
-                                    <div class="d-flex justify-content-center gap-2">
-                                        <form action="/edit/<%= location._id %>" method="GET">
-                                            <button type="submit" class="btn btn-warning btn-sm">Edit</button>
-                                        </form>
-                                        <form action="/delete/<%= location._id %>" method="POST" onsubmit="return confirm('Are you sure?');">
-                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                        </form>
-                                    </div>
-                                <% } %>
-                            </div>
-                        </div>
-                    </div>
-                <% }); %>
-            </div>
+  <!-- ✅ Our Restaurant Locations Section -->
+<section class="locations-section py-5">
+    <div class="container">
+      <h2 class="text-center mb-4">OUR LOCATIONS</h2>
+      <p class="text-center">Visit our outlets in these prime locations.</p>
+  
+      <!-- ✅ Admin 'Add Location' Button -->
+      <% if (isAdmin) { %>
+        <div class="text-center mb-4">
+          <a href="/add" class="btn btn-primary">Add New Location</a>
         </div>
-    </section>
-    
-
-
-
+      <% } %>
+  
+      <!-- ✅ Bootstrap Row for Card Alignment -->
+      <div class="row">
+        <% locations.forEach(location => { %>
+          <div class="col-md-4 mb-4">
+            <div class="card shadow h-100">
+              <img src="/Images/<%= location.image %>" class="card-img-top" alt="Location Image">
+              <div class="card-body text-center d-flex flex-column justify-content-between">
+                <div>
+                  <h5 class="card-title"><%= location.name %></h5>
+                  <p class="card-text"><%= location.address %></p>
+                </div>
+  
+                <% if (isAdmin) { %>
+                  <div class="d-flex justify-content-center gap-2 mt-3">
+                    <form action="/edit/<%= location._id %>" method="GET">
+                      <button type="submit" class="btn btn-warning btn-sm">Edit</button>
+                    </form>
+                    <form action="/delete/<%= location._id %>" method="POST" onsubmit="return confirm('Are you sure?');">
+                      <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                  </div>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+  
     <section class="special-section py-5">
         <div class="container">
             <h2 class="text-center mb-4">Chef's Favourite</h2>
@@ -293,7 +261,7 @@
         </div>
     </div>
 </section>
-<section class="footer">
+<section class="footer"  id="contact">
 <!-- ✅ Footer Section -->
 <footer class="bg-dark text-white pt-5 pb-4 mt-5">
     <div class="container text-md-left">
@@ -301,7 +269,7 @@
         
         <!-- 🔹 Logo & Description -->
         <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4">
-          <h4 class="fw-bold text-uppercase mb-3">Restaurant Name</h4>
+          <h4 class="fw-bold text-uppercase mb-3">Swadisht</h4>
           <p>We are driven by our passion for quality food and unforgettable dining experiences. Come visit us and be part of our culinary journey!</p>
           <div class="mt-3">
             <a href="#"><i class="bi bi-facebook text-white me-3 fs-5"></i></a>
@@ -315,14 +283,14 @@
           <h5 class="text-uppercase fw-bold mb-3">Address</h5>
           <p>FOURLEAF CAFE & RESTAURANTS PRIVATE LIMITED</p>
           <p>GST: 27AAECF8881H1Z6</p>
-          <p>Ground Floor, Gauri Kunj,<br>Kalakar Kishorkumar Ganguli Marg,<br>Juhu Tara Road, Mumbai, Maharashtra, 400049</p>
+          <p>Ahmedabad Rooftop experience,<br>Punjab Authentic Kitchen,<br>Mumbai Grand Dining, 400049</p>
         </div>
   
         <!-- 🔹 Contact -->
         <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4">
           <h5 class="text-uppercase fw-bold mb-3">Contact</h5>
-          <p>Email: <a href="mailto:contact@restaurant.com" class="text-white text-decoration-none">contact@restaurant.com</a></p>
-          <p>WhatsApp: <a href="https://wa.me/918108451818" class="text-white text-decoration-none">+91 81084 51818</a></p>
+          <p>Email: <a href="mailto:contact@restaurant.com" class="text-white text-decoration-none">swadisht.noreply@gmail.com</a></p>
+          <p>WhatsApp: <a href="https://wa.me/918108451818" class="text-white text-decoration-none">+91 1111111111</a></p>
         </div>
   
       </div>
